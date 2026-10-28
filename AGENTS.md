@@ -49,8 +49,10 @@ Motiv8은 사용자의 운동 기록을 바탕으로 운동 일지, 부위별 �
 | 로그·운영 관측 | `.codex/operation/logging.md` | 구조화 로그, request ID, 개인정보, 수집 환경 |
 | 모듈·레이어·의존성 | `.codex/architecture/` 및 해당 도메인 문서 | 모듈 경계, 레이어 책임, 의존 역전 |
 | 모듈 간 통신 | `.codex/architecture/communication.md` | Facade, Port, Event, 동기·비동기 처리 |
+| 코드 작성·주석 | `.codex/architecture/code-convention.md` | 이름, 타입, 책임, 초급자용 흐름 주석 |
 | Prisma·저장소·트랜잭션 | `.codex/persistence/` 및 해당 도메인 문서 | Entity 분리, Projection, Migration, 원자성 |
 | Git 커밋·브랜치 작업 | `.codex/git/` | 커밋 prefix, 분리 기준, 검증 흐름 |
+| 포트폴리오·트러블슈팅 기록 | `.codex/portfolio/` | 기술 선택, 구현 범위, 문제 해결, 검증 결과 |
 
 ## 구현 규칙
 
