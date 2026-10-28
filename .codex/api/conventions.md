@@ -31,3 +31,5 @@
 - `/workouts`: 운동 기록
 - `/workout-journals`: 운동 일지
 - `/character`: 캐릭터 상태와 진행도
+
+운동 종목 유형은 API에서 `WEIGHT`, `BODYWEIGHT`, `CARDIO` enum name을 사용한다.
