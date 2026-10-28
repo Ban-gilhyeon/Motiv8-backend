@@ -45,6 +45,8 @@ Motiv8은 사용자의 운동 기록을 바탕으로 운동 일지, 부위별 �
 | REST API·DTO·Swagger | 해당 기능의 개념·플로우·예외 케이스 | 요청 검증, 응답 의미 |
 | 테스트 | 해당 기능의 `Business Rules`, `Edge Cases` | 정상·실패·권한 시나리오 |
 | 배포·관측성·로그 | `.codex/domain/platform.md` | 운영 환경, 자동 저장, 실패 복구 |
+| 예외 처리·에러 응답 | `.codex/operation/` 및 해당 도메인 문서 | 에러 코드, HTTP 상태, 민감 정보 |
+| 로그·운영 관측 | `.codex/operation/logging.md` | 구조화 로그, request ID, 개인정보, 수집 환경 |
 
 ## 구현 규칙
 
