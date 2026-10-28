@@ -7,5 +7,6 @@ Motiv8은 기능별 모듈을 가진 모듈형 모놀리스로 시작한다. 초
 - [의존 방향](dependency-rules.md): 단방향 의존과 의존 역전
 - [테스트 경계](testing-boundaries.md): 레이어별 테스트 책임
 - [모듈 간 통신](communication.md): 직접 호출과 이벤트 사용 기준
+- [코드 작성 규칙](code-convention.md): 이름, 타입, 책임, 주석
 
 구현 전 이 문서와 작업 대상 도메인 문서를 함께 확인한다.
