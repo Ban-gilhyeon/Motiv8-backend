@@ -1,6 +1,6 @@
-# Motiv8 Backend Agent Guide
+# Motiv8 백엔드 작업 가이드
 
-## Project Context
+## 프로젝트 맥락
 
 Motiv8은 사용자의 운동 기록을 바탕으로 운동 일지, 부위별 통계, 아바타 진행도, 추천과 알림을 제공하는 운동관리 서비스다.
 
@@ -12,7 +12,7 @@ Motiv8은 사용자의 운동 기록을 바탕으로 운동 일지, 부위별 �
 - ORM: Prisma
 - Database: PostgreSQL
 
-## Required Reading Order
+## 필수 문서 확인 순서
 
 모든 구현 작업은 아래 순서로 문서를 확인한다.
 
@@ -23,22 +23,22 @@ Motiv8은 사용자의 운동 기록을 바탕으로 운동 일지, 부위별 �
 
 문서와 코드가 충돌하면 현재 구현을 그대로 따르지 말고, 요구사항을 확인한 뒤 문서 또는 코드를 갱신한다. 확정되지 않은 정책은 임의로 확정하지 않고 `Open Questions`에 기록한다.
 
-## Documentation Routing
+## 문서 라우팅
 
 작업 시작 전에 작업 유형에 해당하는 문서를 읽는다.
 
 | 구현 영역 | 먼저 확인할 문서 | 함께 확인할 도메인 개념 |
 |---|---|---|
 | 회원가입·로그인·JWT·인가 | `.codex/domain/auth.md` | 사용자, 소유권, 개인정보 |
-| 사용자 프로필·신체 정보 | `.codex/domain/auth.md`, `.codex/domain/progress.md` | 사용자, 아바타 |
+| 사용자 프로필·신체 정보 | `.codex/domain/auth.md`, `.codex/domain/character.md` | 사용자, 캐릭터 |
 | 운동 종목 CRUD | `.codex/domain/exercise.md` | 운동 종목, 운동 방식, 타겟 부위 |
 | 루틴 생성·수정·조회 | `.codex/domain/workout.md` | 루틴, 운동 종목 |
 | 운동 기록 저장·수정·삭제 | `.codex/domain/workout.md` | 운동 기록, 세트, 반복 횟수, 무게, 시간 |
 | 운동 일지·달력 조회 | `.codex/domain/workout.md` | 날짜별 기록, 월별 조회 |
-| 부위별 통계 | `.codex/domain/workout.md`, `.codex/domain/progress.md` | 운동량 산정, 타겟 부위 |
-| 아바타 단계·외형 변화 | `.codex/domain/progress.md` | 운동량, 목표, 단계 |
-| 운동 추천 | `.codex/domain/progress.md` | 목표, 부족한 부위 |
-| 목표·배지 | `.codex/domain/progress.md` | 목표 달성, 달성 이력 |
+| 부위별 통계 | `.codex/domain/workout.md`, `.codex/domain/character.md` | 운동량 산정, 타겟 부위 |
+| 캐릭터 단계·외형 변화 | `.codex/domain/character.md` | 운동량, 목표, 단계 |
+| 운동 추천 | `.codex/domain/character.md` | 목표, 부족한 부위 |
+| 목표·배지 | `.codex/domain/character.md` | 목표 달성, 달성 이력 |
 | 알림·스케줄러 | `.codex/domain/notification.md` | 운동 시점, 목표, 부족 부위 |
 | 친구·경쟁 기능 | `.codex/domain/social.md` | 친구, 공개 범위, 경쟁 |
 | Prisma 스키마·마이그레이션 | `.codex/domain/platform.md` 및 관련 도메인 문서 | 엔티티 관계, 소유권, 삭제 정책 |
@@ -46,7 +46,7 @@ Motiv8은 사용자의 운동 기록을 바탕으로 운동 일지, 부위별 �
 | 테스트 | 해당 기능의 `Business Rules`, `Edge Cases` | 정상·실패·권한 시나리오 |
 | 배포·관측성·로그 | `.codex/domain/platform.md` | 운영 환경, 자동 저장, 실패 복구 |
 
-## Implementation Rules
+## 구현 규칙
 
 - 도메인 규칙은 Controller가 아니라 Service 또는 도메인 로직에서 보장한다.
 - Controller는 요청 파싱, 인증 정보 전달, 응답 반환에 집중한다.
@@ -59,7 +59,7 @@ Motiv8은 사용자의 운동 기록을 바탕으로 운동 일지, 부위별 �
 - 외부 입력, 인증, 권한, 개인정보를 신뢰하지 않는다.
 - 새 기능은 단위 테스트 또는 통합 테스트를 함께 추가한다.
 
-## Documentation Update Rules
+## 문서 갱신 규칙
 
 구현으로 도메인 규칙이나 정책이 확정·변경되면 코드만 수정하지 않는다.
 
@@ -68,7 +68,7 @@ Motiv8은 사용자의 운동 기록을 바탕으로 운동 일지, 부위별 �
 3. 더 이상 맞지 않는 `Open Questions`는 제거하거나 결정된 내용으로 이동한다.
 4. 구현 로그나 임시 디버깅 내용은 문서에 남기지 않는다.
 
-## Verification Checklist
+## 검증 체크리스트
 
 작업 종료 전 아래를 확인한다.
 
