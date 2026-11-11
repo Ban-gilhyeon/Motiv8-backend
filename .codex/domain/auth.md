@@ -25,6 +25,14 @@
 3. 서버가 인증 토큰을 발급한다.
 4. 보호된 API는 토큰과 사용자 소유권을 검증한다.
 
+## 인증 토큰 정책
+
+- Access Token은 짧은 유효기간을 사용하고 API 요청의 `Authorization: Bearer` Header로 전달한다.
+- Refresh Token은 Access Token보다 긴 유효기간을 사용한다.
+- 서버에는 Refresh Token 원문이 아니라 해시를 저장한다.
+- Refresh Token은 Secure Storage를 사용할 모바일 앱을 우선 고려한다.
+- 회원가입 성공 시 바로 사용할 수 있도록 Access Token과 Refresh Token을 발급한다.
+
 ## 예외 상황
 
 - 존재하지 않는 계정 로그인
@@ -35,5 +43,5 @@
 
 ## 결정이 필요한 사항
 
-- JWT 저장 위치와 refresh token 정책은 무엇인가?
+- Refresh Token 회전과 로그아웃 시 폐기 정책은 무엇인가?
 - 탈퇴 시 운동 기록을 함께 삭제할 것인가?

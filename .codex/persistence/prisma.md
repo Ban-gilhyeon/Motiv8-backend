@@ -3,6 +3,8 @@
 ## Schema
 
 - 모델명과 필드명은 도메인 용어와 일치시킨다.
+- 생성·수정 이력이 필요한 모델은 `createdAt DateTime @default(now())`와 `updatedAt DateTime @updatedAt`을 기본으로 검토한다.
+- `updatedAt`은 애플리케이션이 직접 입력하지 않고 Prisma가 갱신하도록 맡긴다.
 - nullable, unique, relation, index를 명시적으로 검토한다.
 - 인증 정보와 개인정보는 필요한 범위만 저장한다.
 - Prisma Model 타입을 Controller 응답으로 직접 노출하지 않는다.
