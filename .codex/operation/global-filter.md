@@ -9,6 +9,7 @@ NestJS의 전역 `ExceptionFilter`는 애플리케이션에서 발생한 예외�
 - 정의된 도메인 예외 처리
 - 정의되지 않은 시스템 예외 처리
 - request ID와 오류 로그 연결
+- `success: false`와 안정적인 오류 코드 반환
 
 ## 응답 규칙
 
@@ -17,6 +18,7 @@ NestJS의 전역 `ExceptionFilter`는 애플리케이션에서 발생한 예외�
 - HTTP 상태 코드와 에러 코드는 일관되게 매핑한다.
 - stack trace와 내부 경로는 외부에 반환하지 않는다.
 - Validation 오류는 필드별 details로 반환할 수 있다.
+- 내부 오류의 원인과 stack trace는 로그에만 남기고 외부 응답에는 노출하지 않는다.
 
 ## 시스템 오류
 
@@ -30,3 +32,18 @@ NestJS의 전역 `ExceptionFilter`는 애플리케이션에서 발생한 예외�
 - 에러 코드
 - 안전한 사용자·리소스 식별자
 - stack trace는 내부 로그에만 기록
+
+## 도메인 예외 변환
+
+`DomainException` 구현체는 전역 필터에서 아래 응답으로 변환한다.
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "USER_ALREADY_EXISTS",
+    "message": "이미 가입된 이메일입니다.",
+    "details": null
+  }
+}
+```

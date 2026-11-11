@@ -3,6 +3,7 @@
 ## 인증
 
 - 인증 방식은 JWT 기반으로 시작한다.
+- Access Token은 `Authorization: Bearer` Header로 전달한다.
 - 보호 API는 Guard에서 토큰을 검증한다.
 - 인증 주체의 `userId`는 request body나 query가 아니라 인증 컨텍스트에서 가져온다.
 - 만료·위조·누락 토큰은 `401 Unauthorized`를 반환한다.
@@ -21,7 +22,8 @@
 - 로그인 실패 사유로 계정 존재 여부를 과도하게 노출하지 않는다.
 - 토큰 발급·갱신·폐기 정책은 구현 전에 확정한다.
 
+회원가입과 로그인 성공 시 Access Token과 Refresh Token을 응답한다. Refresh Token 원문은 서버에 저장하지 않고 해시만 저장한다.
+
 ## 결정이 필요한 사항
 
-- Access token과 Refresh token 저장 위치는 쿠키와 Authorization Header 중 무엇으로 할 것인가?
-- Refresh token 회전과 로그아웃 시 폐기 정책은 무엇인가?
+- Refresh Token 회전과 로그아웃 시 폐기 정책은 다음 Auth 작업에서 확정한다.
