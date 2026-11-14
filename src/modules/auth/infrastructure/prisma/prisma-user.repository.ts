@@ -21,4 +21,8 @@ export class PrismaUserRepository implements UserRepositoryPort {
     const record = await this.prisma.user.create({ data: user.props });
     return User.restore(record);
   }
+
+  async deleteById(id: string): Promise<void> {
+    await this.prisma.user.delete({ where: { id } });
+  }
 }

@@ -2,40 +2,54 @@ import { describe, expect, it, jest } from "@jest/globals";
 import { AuthService } from "./auth.service";
 import { AuthException } from "../domain/errors/auth.exception";
 import { User } from "../domain/entities/user.entity";
+import type { UserRepositoryPort } from "../domain/repositories/user-repository.port";
+import type { RefreshTokenRepositoryPort } from "../domain/repositories/refresh-token-repository.port";
+import type { PasswordHasher } from "./components/password-hasher";
+import type { TokenIssuer } from "./components/token-issuer";
+import type { ProfileService } from "../../profile/application/profile.service";
 
 describe("회원가입과 로그인", () => {
   const createFixture = () => {
     const userRepository = {
-      findByEmail: jest.fn(),
-      findById: jest.fn(),
-      save: jest.fn(),
+      findByEmail: jest.fn() as jest.MockedFunction<UserRepositoryPort["findByEmail"]>,
+      findById: jest.fn() as jest.MockedFunction<UserRepositoryPort["findById"]>,
+      save: jest.fn() as jest.MockedFunction<UserRepositoryPort["save"]>,
+      deleteById: jest.fn() as jest.MockedFunction<UserRepositoryPort["deleteById"]>,
     };
     const passwordHasher = {
-      hash: jest.fn(),
-      verify: jest.fn(),
+      hash: jest.fn() as jest.MockedFunction<PasswordHasher["hash"]>,
+      verify: jest.fn() as jest.MockedFunction<PasswordHasher["verify"]>,
     };
     const refreshTokenRepository = {
-      save: jest.fn(),
-      findActiveByUserId: jest.fn(),
-      revoke: jest.fn(),
+      save: jest.fn() as jest.MockedFunction<RefreshTokenRepositoryPort["save"]>,
+      findActiveByUserId: jest.fn() as jest.MockedFunction<RefreshTokenRepositoryPort["findActiveByUserId"]>,
+      revoke: jest.fn() as jest.MockedFunction<RefreshTokenRepositoryPort["revoke"]>,
     };
     const tokenIssuer = {
-      issue: jest.fn(),
-      hashRefreshToken: jest.fn().mockReturnValue("refresh-token-hash"),
-      refreshTokenExpiresAt: jest.fn().mockReturnValue(new Date()),
+      issue: jest.fn() as jest.MockedFunction<TokenIssuer["issue"]>,
+      verifyRefreshToken: jest.fn() as jest.MockedFunction<TokenIssuer["verifyRefreshToken"]>,
+      hashRefreshToken: jest.fn() as jest.MockedFunction<TokenIssuer["hashRefreshToken"]>,
+      refreshTokenExpiresAt: jest.fn() as jest.MockedFunction<TokenIssuer["refreshTokenExpiresAt"]>,
     };
+    const profileService = {
+      createForUser: jest.fn() as jest.MockedFunction<ProfileService["createForUser"]>,
+    };
+    tokenIssuer.hashRefreshToken.mockReturnValue("refresh-token-hash");
+    tokenIssuer.refreshTokenExpiresAt.mockReturnValue(new Date());
 
     return {
       service: new AuthService(
         userRepository,
         refreshTokenRepository,
         passwordHasher,
-        tokenIssuer,
+        tokenIssuer as unknown as TokenIssuer,
+        profileService as unknown as ProfileService,
       ),
       userRepository,
       refreshTokenRepository,
       passwordHasher,
       tokenIssuer,
+      profileService,
     };
   };
 

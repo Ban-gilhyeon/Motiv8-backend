@@ -20,6 +20,7 @@ model User {
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
   refreshTokens RefreshToken[]
+  profile      Profile?
 }
 
 model RefreshToken {
@@ -34,4 +35,37 @@ model RefreshToken {
 
   @@index([userId])
   @@index([tokenHash])
+}
+
+model Profile {
+  id              String   @id @default(uuid())
+  userId          String   @unique
+  totalExperience Int      @default(0)
+  level           Int      @default(1)
+  shoulder        Int      @default(0)
+  arm             Int      @default(0)
+  chest           Int      @default(0)
+  back            Int      @default(0)
+  abs             Int      @default(0)
+  lowerBody       Int      @default(0)
+  endurance       Int      @default(0)
+  passion         Int      @default(0)
+  firstWorkoutAt  DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  experienceHistory ExperienceHistory[]
+}
+
+model ExperienceHistory {
+  id         String   @id @default(uuid())
+  profileId  String
+  sourceType String
+  sourceId   String
+  amount     Int
+  createdAt  DateTime @default(now())
+  profile    Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@unique([sourceType, sourceId])
+  @@index([profileId])
 }

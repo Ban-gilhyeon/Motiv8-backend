@@ -9,14 +9,17 @@ import {
   USER_REPOSITORY,
 } from "./domain/repositories/user-repository.port";
 import { REFRESH_TOKEN_REPOSITORY } from "./domain/repositories/refresh-token-repository.port";
-import { PrismaService } from "./infrastructure/prisma/prisma.service";
+import { PrismaModule } from "../../common/database/prisma.module";
 import { PrismaUserRepository } from "./infrastructure/prisma/prisma-user.repository";
 import { PrismaRefreshTokenRepository } from "./infrastructure/prisma/prisma-refresh-token.repository";
 import { JwtStrategy } from "./infrastructure/jwt/jwt.strategy";
+import { ProfileModule } from "../profile/profile.module";
 
 @Module({
   imports: [
     PassportModule,
+    ProfileModule,
+    PrismaModule,
     JwtModule.register({
       secret: process.env.JWT_ACCESS_SECRET ?? "development-access-secret",
     }),
@@ -27,7 +30,6 @@ import { JwtStrategy } from "./infrastructure/jwt/jwt.strategy";
     PasswordHasher,
     TokenIssuer,
     JwtStrategy,
-    PrismaService,
     PrismaUserRepository,
     PrismaRefreshTokenRepository,
     { provide: USER_REPOSITORY, useExisting: PrismaUserRepository },
