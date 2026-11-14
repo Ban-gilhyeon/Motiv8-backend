@@ -32,6 +32,7 @@
 - 서버에는 Refresh Token 원문이 아니라 해시를 저장한다.
 - Refresh Token은 Secure Storage를 사용할 모바일 앱을 우선 고려한다.
 - 회원가입 성공 시 바로 사용할 수 있도록 Access Token과 Refresh Token을 발급한다.
+- 회원가입 성공 시 기본 Profile을 함께 생성한다.
 
 ## 예외 상황
 
