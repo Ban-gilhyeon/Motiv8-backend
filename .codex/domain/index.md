@@ -7,6 +7,7 @@ Motiv8은 운동 기록을 바탕으로 운동 일지, 통계, 아바타 진행�
 ## 도메인 문서
 
 - [Auth](auth.md): 사용자, 인증, 권한, 개인정보
+- [Profile](profile.md): 경험치, 레벨, 운동 성장 스탯
 - [Exercise](exercise.md): 운동 종목, 운동 방식, 타겟 부위
 - [Workout](workout.md): 루틴, 운동 기록, 일지, 통계
 - [Character](character.md): 캐릭터 변화와 운동 동기부여 상태

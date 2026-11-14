@@ -41,7 +41,7 @@ Motiv8은 운동 기록을 바탕으로 사용자의 지속적인 운동을 돕�
 | 입력 검증 | class-validator, class-transformer |
 | 테스트 | Jest, Supertest |
 | 코드 품질 | Prettier, oxlint |
-| 관측성 | NestJS Observe 검토 |
+| 관측성 | 추후 별도 로그·모니터링 도구 검토 |
 
 ## 구조 방향
 

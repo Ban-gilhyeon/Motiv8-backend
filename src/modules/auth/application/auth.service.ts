@@ -13,6 +13,7 @@ import {
 } from "../domain/repositories/refresh-token-repository.port";
 import type { RefreshTokenRepositoryPort } from "../domain/repositories/refresh-token-repository.port";
 import { AuthException } from "../domain/errors/auth.exception";
+import { ProfileService } from "../../profile/application/profile.service";
 
 @Injectable()
 export class AuthService {
@@ -23,6 +24,7 @@ export class AuthService {
     private readonly refreshTokenRepository: RefreshTokenRepositoryPort,
     private readonly passwordHasher: PasswordHasher,
     private readonly tokenIssuer: TokenIssuer,
+    private readonly profileService: ProfileService,
   ) {}
 
   async signup(request: SignupRequest): Promise<AuthResponse> {
@@ -40,8 +42,13 @@ export class AuthService {
         nickname: request.nickname,
       }),
     );
-
-    return this.createAuthResponse(user);
+    try {
+      await this.profileService.createForUser(user.props.id);
+      return await this.createAuthResponse(user);
+    } catch (error) {
+      await this.userRepository.deleteById(user.props.id);
+      throw error;
+    }
   }
 
   async login(request: LoginRequest): Promise<AuthResponse> {
